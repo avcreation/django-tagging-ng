@@ -12,6 +12,9 @@ class ModelTagManager(models.Manager):
     A manager for retrieving tags for a particular model.
     """
     def get_query_set(self):
+        return self.get_queryset()
+
+    def get_queryset(self):
         ctype = ContentType.objects.get_for_model(self.model)
         return Tag.objects.filter(
             items__content_type__pk=ctype.pk).distinct()
